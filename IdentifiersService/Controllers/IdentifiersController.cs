@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IdentifiersService.Controllers
 {
-    [Route("api")]
     [ApiController]
+    [ApiVersion( "1.0" )]
+    [Route("v{version:apiVersion}/")]
     public class IdentifiersController : ControllerBase
     {
         private readonly IIdentifiersRepository _IdentifiersRepository;
