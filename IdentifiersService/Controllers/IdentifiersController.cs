@@ -28,11 +28,28 @@ namespace IdentifiersService.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, CommonMessage.ExceptionMessage + ex.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
             generatedIdentifier.Message = CommonMessage.IdentifierGenerated;
 
             return StatusCode(StatusCodes.Status200OK, generatedIdentifier);
+        }
+
+        [HttpGet]
+        [Route("identifiers/resource-names")]
+        public IActionResult GenerateResourceNames(string key)
+        {
+            GeneratedResourceNamesResponse response = new GeneratedResourceNamesResponse();
+            try
+            {
+                 response.resourceName = _IdentifiersRepository.GenerateResourceNames(key);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+
+            return StatusCode(StatusCodes.Status200OK, response);
         }
     }
 }
