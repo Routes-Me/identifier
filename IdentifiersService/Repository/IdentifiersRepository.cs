@@ -23,20 +23,19 @@ namespace IdentifiersService.Repository
             return generatedIdentifier;
         }
 
-        public string GenerateResourceNames()
+        public string GenerateResourceNames(string key)
         {
             string resourceName = "";
 
             using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                Counters counter = _context.Counters.ToList().LastOrDefault();
-
+                Counters counter = _context.Counters.Where(c => c.Key == key).FirstOrDefault();
                 if (counter == null)
-                    counter = new Counters { Value = 1 };
+                    counter = new Counters { Key = key, Value = 1 };
                 else
                     counter.Value++;
 
-                resourceName = "A00" + counter.Value.ToString("D4");
+                resourceName = "A00" + counter.Value.ToString();
                 _context.Counters.Update(counter);
                 _context.SaveChanges();
                 dbContextTransaction.Commit();

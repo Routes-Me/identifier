@@ -37,12 +37,12 @@ namespace IdentifiersService.Controllers
 
         [HttpGet]
         [Route("identifiers/resource-names")]
-        public IActionResult GenerateResourceNames()
+        public IActionResult GenerateResourceNames(string key)
         {
             GeneratedResourceNamesResponse response = new GeneratedResourceNamesResponse();
             try
             {
-                 response.resourceName = _IdentifiersRepository.GenerateResourceNames();
+                 response.resourceName = _IdentifiersRepository.GenerateResourceNames(key);
             }
             catch (Exception ex)
             {

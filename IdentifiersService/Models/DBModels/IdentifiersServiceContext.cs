@@ -25,7 +25,15 @@ namespace IdentifiersService.Models.DBModels
 
                 entity.Property(e => e.CounterId).HasColumnName("counter_id");
 
-                entity.Property(e => e.Value).HasColumnName("value");
+                entity.Property(e => e.Key)
+                    .HasColumnName("key")
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.Value)
+                    .HasColumnName("value")
+                    .HasColumnType("bigint");
             });
 
             OnModelCreatingPartial(modelBuilder);
